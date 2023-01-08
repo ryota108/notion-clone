@@ -4,6 +4,7 @@ const { body, validationResult } = require("express-validator");
 const User = require("../models/user");
 const validation = require("../handlers/validation");
 const userController = require("../controllers/user");
+const tokenHandler = require("../handlers/tokenHandler");
 router.post(
   "/register",
   body("username")
@@ -37,5 +38,10 @@ router.post(
     validation.validate,
     userController.login
 );
+
+router.post("/verify-token",tokenHandler.verifyToken,(req,res)=>{
+  return res.status(200).json({user:req.user});
+})
+
 
 module.exports = router;
