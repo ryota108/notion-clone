@@ -2,14 +2,16 @@ import { TextField, Button } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
 import { LoadingButton } from "@mui/lab";
-import { Link } from "react-router-dom";
+import { Link,Navigate, useNavigate } from "react-router-dom";
 import authApi from "../api/authApi";
 
 const Register = () => {
+  const navigate = useNavigate()
  
   const [usernameErrText, setUsernameErrText] = useState("");
   const [passwordErrText, setPasswordErrText] = useState("");
   const [confirmErrText, setConfirmErrText] = useState("");
+  const [isLoading,setIsLoading] = useState(false)
 
   const submitHandler = async (e) =>{
     e.preventDefault()
@@ -43,6 +45,8 @@ const Register = () => {
 
    if(error) return;
 
+   setIsLoading(true)
+
     // 新規登録APIを叩く
     try {
       const res = await authApi.register({
@@ -50,8 +54,10 @@ const Register = () => {
         password,
         confirmPassword
       });
+      setIsLoading(false)
       localStorage.setItem("token",res.token)
       console.log("新規登録成功")
+      navigate("/")
     } catch (err){
      const errors = err.data.errors;
      console.log(errors)
@@ -67,6 +73,7 @@ const Register = () => {
           setConfirmErrText(err.msg);
         }
       })
+      setIsLoading(false)
     }
   }
 
@@ -82,6 +89,7 @@ const Register = () => {
         required
         helperText={usernameErrText}
         error={usernameErrText!==""}
+        disabled={isLoading}
       />
       <TextField
         fullWidth
@@ -93,6 +101,7 @@ const Register = () => {
         required
         helperText={passwordErrText}
         error={passwordErrText!==""}
+        disabled={isLoading}
       />
       <TextField
         fullWidth
@@ -104,12 +113,13 @@ const Register = () => {
         required
         helperText={confirmErrText}
         error={confirmErrText!==""}
+        disabled={isLoading}
       />
       <LoadingButton
         sx={{ mt: 3, mb: 2 }}
         fullWidth
         type="submit"
-        loading={false}
+        loading={isLoading}
         color="primary"
         variant="outlined"
       >

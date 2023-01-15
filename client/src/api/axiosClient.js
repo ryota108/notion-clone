@@ -19,8 +19,8 @@ axiosClient.interceptors.request.use(async (config) => {
 });
 
 axiosClient.interceptors.response.use(
-  (response) => {
-    return response;
+  (response) => { 
+    return response.data;
   },
   (err) => {
     throw err.response;
