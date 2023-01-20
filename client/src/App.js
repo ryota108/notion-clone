@@ -6,6 +6,8 @@ import Register from './pages/Register';
 import {createTheme,ThemeProvider} from "@mui/material/styles";
 import { CssBaseline } from '@mui/material';
 import {blue} from "@mui/material/colors";
+import Home from './pages/Home';
+import AppLayout from './components/layout/AppLayout';
 
 function App() {
 
@@ -21,6 +23,10 @@ function App() {
       <Route path="/"element={<AuthLayout/>}>
          <Route path="login"element={<Login/>}/>
          <Route path="register"element={<Register/>}/>
+      </Route>
+      <Route path="/" element={<AppLayout/>}>
+        <Route index element={<Home/>}/>
+        <Route path="memo" element={<Home/>}/>
       </Route>
     </Routes>
     </BrowserRouter>
