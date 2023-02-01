@@ -9,6 +9,7 @@ const Sidebar = () => {
   const navigate = useNavigate()
   const user = useSelector((state) => state.user.value );
   const logoutHandler = () =>{
+    // tokenを削除している
     localStorage.removeItem("token")
     navigate("/login")
   }
