@@ -3,7 +3,7 @@ import { Drawer, List, ListItemButton,Box, Typography, IconButton } from "@mui/m
 import LogoutOutlinedIcon from "@mui/icons-material/Logout"
 import AddBoxOutlinedIcon from "@mui/icons-material/AddBoxOutlined"
 import assets from "../../assets";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 const Sidebar = () => {
   const navigate = useNavigate()
@@ -72,6 +72,11 @@ const Sidebar = () => {
    <AddBoxOutlinedIcon/>
    </IconButton>
     </Box>
+  </ListItemButton>
+  <ListItemButton>
+    <Typography sx={{pl:"20px"}} component={Link} to="memo/gehoouoaatu">
+      📝仮おきのメモ
+    </Typography>
   </ListItemButton>
 </List>
 
